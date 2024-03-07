@@ -1,5 +1,9 @@
 <h1>Lojaweb</h1>
 <p>Projeto para venda de produtos na web. Não será um marktplace, será um e-commerce para que uma loja única possa vender seus produtos online.</p>
+<p>
+  Neste primeiro momento, servirá apenas como uma <strong>vitrine virtual</strong>, logo, as funcionalidades de <strong>carrinho e finalização de compra</strong> não estarão
+  disponíveis.
+</p>
 <p>Projeto feito para o <strong>técnico em desenvolvimento de sistemas</strong>.</p>
 
 <h3 align="center">⚒ Em desenvolvimento ⚒</h3>

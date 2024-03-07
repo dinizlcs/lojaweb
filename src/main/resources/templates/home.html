@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <title>Lojaweb</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+        <th:block th:insert="~{fragments/defaultUtils.html :: links}"></th:block>
+                  
+        <link rel="stylesheet" th:href="@{/css/home.css}">
+    </head>
+    <body>
+        <header>
+            <th:block th:insert="~{fragments/defaultUtils.html :: navbar}"></th:block>
+        </header>
+        
+        <main>
+            <div class="container">
+                <div id="produtos" class="row mt-2 justify-content-center">
+                    <div th:each="produto : ${lstProdutos}" class="card mx-2 my-2" style="width: 16rem;">
+                        <img th:if="${produto.image != null}" th:src="@{'/produto/imagem/' + ${produto.id}}" class="mt-1">
+                        <img th:unless="${produto.image != null}" th:src="@{/images/defaultImg.jpg}" class="mt-1">
+                        <div class="card-body">
+                            <h5 class="card-title" th:text="${produto.title}"></h5>
+                            <p class="card-text" th:text="${produto.description}"></p>
+                        </div>
+                        <div class="card-footer">
+                            <p class="card-text">R$<span th:text="${produto.price}"></span></p>
+                            <div class="row justify-content-center">
+                                <a class="btn btn-card" th:href="@{detalhes/{id} (id=${produto.id})}">Ver detalhes</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+        
+        <footer class="footer">
+            
+        </footer>
+    </body>
+</html>

@@ -1,0 +1,41 @@
+<th:block th:fragment="links">
+    <!--JQuery-->
+    <script th:src="@{/js/jquery.js}"></script>
+
+    <!--Script Bootstrap-->
+    <script th:src="@{/bootstrap/js/bootstrap.min.js}"></script>
+
+    <!--CSS Bootstrap-->
+    <link rel="stylesheet" th:href="@{/bootstrap/css/bootstrap.min.css}"/>
+    
+    <!--Icones-->
+    <script src="https://kit.fontawesome.com/ea18f1896e.js" crossorigin="anonymous"></script>
+    
+    <!--CSS-->
+    <link rel="stylesheet" th:href="@{/css/default.css}" type="text/css"/>
+</th:block>
+
+<th:block th:fragment="navbar">
+    <nav class="navbar navbar-expand">
+        <div class="container-fluid">
+            <div class="collapse navbar-collapse">
+                <ul class="navbar-nav">
+                    <li class="nav-item btn-nav"><a th:href="@{/}">Home</a></li>
+                </ul>
+            </div>
+            <div class="float-end">
+                <div class="dropdown">
+                    <button class="dropbtn">Perfil</button>
+                    <div th:if="${isUserLogged == false}" class="dropdown-content">
+                        <a th:href="@{/usuario/login}">Login</a>
+                        <a th:href="@{/usuario/cadastro}">Cadastrar</a>
+                    </div>
+                    <div th:if="${isUserLogged}" class="dropdown-content">
+                        <a th:href="@{/cadastrar-produto}">Cadastrar produto</a>
+                        <a th:href="@{/logoutUser}">Sair</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+</th:block>

@@ -7,6 +7,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.Lob;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotBlank;
@@ -22,16 +23,20 @@ public class ProdutoEntity {
     @GeneratedValue(strategy=GenerationType.IDENTITY)
     private Integer id;
     
+    @Lob
+    @Column(columnDefinition="MEDIUMBLOB")
+    private byte[] image;
+    
     @NotBlank(message="Adicione um títutlo para o produto")
-    private String prodTitle;
+    private String title;
     
     @Column(columnDefinition="TEXT")
-    private String prodDescription;
+    private String description;
     
     @NotNull(message="Adicione um valor para o produto")
-    private Double prodValue;
+    private Double price;
     
     @JsonManagedReference
     @OneToMany(mappedBy="product", cascade=CascadeType.ALL)
-    private List<AvaliacoesEntity> prodReviews;
+    private List<AvaliacoesEntity> reviews;
 }
