@@ -1,6 +1,7 @@
 package com.dnz.lojaweb.controller;
 
 import com.dnz.lojaweb.model.ProdutoEntity;
+import com.dnz.lojaweb.model.UsuarioEntity;
 import java.util.ArrayList;
 import java.util.List;
 import org.springframework.stereotype.Controller;
@@ -56,6 +57,7 @@ public class LojawebController {
     public String formUser(@CookieValue(name="loggedUser", defaultValue="") Integer loggedUserId, @CookieValue(name="isUserLogged", defaultValue="false") boolean isLogged, Model model,
     @PathVariable(value="regLogin") String regLogin){
         model.addAttribute("isUserLogged", isLogged);
+        model.addAttribute("usuario", new UsuarioEntity());
 
         // Verificar se é para cadastrar e mostrar o form de Cadastro ou de Login
         if(regLogin.equals("cadastro")){

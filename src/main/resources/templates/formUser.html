@@ -14,32 +14,20 @@
         
         <main class="d-flex justify-content-center align-items-center" style="min-height: calc(100vh - 108px);">
             <div class="container" style="margin-left: auto; margin-right: auto;">
-                <form th:if="${isToSignup}" th:action="@{/signupUser}" method="POST" class="center-form">
-                    <h2>Cadastro</h2>
+                <form th:action="${isToSignup} ? @{/signupUser} : @{/loginUser}" th:object="${usuario}" method="POST" class="center-form">
+                    <h2 th:text="${isToSignup} ? 'Cadastro' : 'Login'"></h2>
+                    <p th:text="${loginError}"></p>
                     <p>
                         <label for="txtEmail">Email:</label>
                         <br>
-                        <input type="email" name="email" id="txtEmail">
+                        <input type="email" name="email" id="txtEmail" th:field="*{email}">
+                        <span class="text-danger" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></span>
                     </p>
                     <p>
                         <label for="txtPassword">Senha:</label>
                         <br>
-                        <input type="password" name="password" id="txtPassword">
-                    </p>
-                    <input type="submit" value="Enviar" class="btn btn-card">
-                </form>
-                
-                <form th:if="${isToSignup == false}" th:action="@{/loginUser}" method="POST" class="center-form">
-                    <h2>Login</h2>
-                    <p>
-                        <label for="txtEmail">Email:</label>
-                        <br>
-                        <input type="email" name="email" id="txtEmail">
-                    </p>
-                    <p>
-                        <label for="txtPassword">Senha:</label>
-                        <br>
-                        <input type="password" name="password" id="txtPassword">
+                        <input type="password" name="password" id="txtPassword" th:field="*{password}">
+                        <span class="text-danger" th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></span>
                     </p>
                     <input type="submit" value="Enviar" class="btn btn-card">
                 </form>
