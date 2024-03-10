@@ -25,14 +25,15 @@
 <h2>Funcionalidades</h2>
 <p><strong>Gerais</strong></p>
 <ul>
-  <li> [ ] Permitir o login e o cadastro de usuário</li>
-  <li> [ ] Permitir a busca de um produto</li>
+  <li> [X] Permitir o login e o cadastro de usuário</li>
+  <li> [X] Permitir a busca de um produto</li>
 </ul>
 
 <p><strong>Tela inicial</strong></p>
 <ul>
-  <li> [ ] Mostrar resumo dos produtos</li>
+  <li> [X] Mostrar resumo dos produtos</li>
 </ul>
+<p>Obs.: Os produtos salvos com alguma imagem não estão sendo mostrados com a imagem</p>
 
 <p><strong>Tela de detalhes</strong></p>
 <ul>

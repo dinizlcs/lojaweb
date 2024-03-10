@@ -14,27 +14,27 @@
         
         <main class="d-flex justify-content-center align-items-center" style="min-height: calc(100vh - 108px);">
             <div class="container" style="margin-left: auto; margin-right: auto;">
-                <form th:action="@{/registerProduct}" method="POST" class="center-form">
+                <form th:action="@{/registerProduct}" th:object="${produto}" method="POST" class="center-form">
                     <h2>Cadastro de produto</h2>
                     <p>
                         <label for="txtImage">Imagem do produto:</label>
                         <br>
-                        <input value="Imagem do produto" type="file" name="image" id="txtImage" accept="image/*">
+                        <input value="Imagem do produto" type="file" name="image" id="txtImage" accept="image/*" th:field="*{image}">
                     </p>
                     <p>
                         <label for="txtTitle">Título:</label>
                         <br>
-                        <input type="text" name="title" id="txtTitle">
+                        <input type="text" name="title" id="txtTitle" th:field="*{title}" required>
                     </p>
                     <p>
                         <label for="txtDescription">Descrição:</label>
                         <br>
-                        <input type="text" name="description" id="txtDescription">
+                        <input type="text" name="description" id="txtDescription" th:field="*{description}" required>
                     </p>
                     <p>
                         <label for="txtPrice">Preço:</label>
                         <br>
-                        <input type="number" name="price" id="txtPrice">
+                        <input type="text" name="price" id="txtPrice" th:field="*{price}" pattern="[0-9]+([\,.][0-9]+)?" required>
                     </p>
                     <input type="submit" value="Enviar" class="btn btn-card">
                 </form>
@@ -44,5 +44,19 @@
         <footer>
             
         </footer>
+        
+        <script>
+            $(document).ready(function(){
+                // Adiciona um evento de escuta para quando o usuário digitar no campo txtPrice
+                $("#txtPrice").on("input", function() {
+                    // Obtém o valor atual do campo txtPrice
+                    let priceValue = $(this).val();
+                    // Substitui qualquer vírgula por um ponto
+                    priceValue = priceValue.replace(",", ".");
+                    // Atualiza o valor do campo txtPrice
+                    $(this).val(priceValue);
+                });
+            });
+        </script>
     </body>
 </html>

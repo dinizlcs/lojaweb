@@ -18,7 +18,7 @@
             <div class="container">
                 <div id="produtos" class="row mt-2 justify-content-center">
                     <div th:each="produto : ${lstProdutos}" class="card mx-2 my-2" style="width: 16rem;">
-                        <img th:if="${produto.image != null}" th:src="@{'/produto/imagem/' + ${produto.id}}" class="mt-1">
+                        <img th:if="${produto.image != null}" th:src="'data:image/jpeg;base64,' + ${#strings.toString(produto.image)}" class="mt-1">
                         <img th:unless="${produto.image != null}" th:src="@{/images/defaultImg.jpg}" class="mt-1">
                         <div class="card-body">
                             <h5 class="card-title" th:text="${produto.title}"></h5>

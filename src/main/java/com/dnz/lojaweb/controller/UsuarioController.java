@@ -6,6 +6,7 @@ import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -26,7 +27,15 @@ public class UsuarioController {
             model.addAttribute("isToSignup", true);
             return "formUser";
         }
-        us.saveUsuario(user);
+        
+        try{
+            us.saveUsuario(user);
+        }catch(DataIntegrityViolationException e){
+            result.rejectValue("email", "error.user", "o email já está cadastrado.");
+            model.addAttribute("isUserLogged", isLogged);
+            model.addAttribute("isToSignup", true);
+            return "formUser";
+        }
         
         return "redirect:/usuario/login";
     }
@@ -45,7 +54,6 @@ public class UsuarioController {
             
             return "redirect:/";
         }else{
-            model.addAttribute("loginError", "Usuário ou senha inválidos.");
             model.addAttribute("isToSignup", false);
             return "redirect:/usuario/login";
         }
