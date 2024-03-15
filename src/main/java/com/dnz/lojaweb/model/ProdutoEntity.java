@@ -10,6 +10,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.Lob;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
+import jakarta.persistence.Transient;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import java.util.List;
@@ -39,4 +40,7 @@ public class ProdutoEntity {
     @JsonManagedReference
     @OneToMany(mappedBy="product", cascade=CascadeType.ALL)
     private List<AvaliacoesEntity> reviews;
+    
+    @Transient
+    private String base64Image;
 }

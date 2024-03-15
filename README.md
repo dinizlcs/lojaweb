@@ -29,11 +29,17 @@
   <li> [X] Permitir a busca de um produto</li>
 </ul>
 
+<p><strong>Admin</strong></p>
+<ul>
+  <li> [X] Cadastrar de um produto</li>
+  <li> [ ] Editar um produto salvo</li>
+  <li> [ ] Excluir um produto salvo</li>
+</ul>
+
 <p><strong>Tela inicial</strong></p>
 <ul>
   <li> [X] Mostrar resumo dos produtos</li>
 </ul>
-<p>Obs.: Os produtos salvos com alguma imagem não estão sendo mostrados com a imagem</p>
 
 <p><strong>Tela de detalhes</strong></p>
 <ul>

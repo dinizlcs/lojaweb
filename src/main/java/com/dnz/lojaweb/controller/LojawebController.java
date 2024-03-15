@@ -3,7 +3,7 @@ package com.dnz.lojaweb.controller;
 import com.dnz.lojaweb.model.ProdutoEntity;
 import com.dnz.lojaweb.model.UsuarioEntity;
 import com.dnz.lojaweb.repository.ProdutoService;
-import java.util.ArrayList;
+import java.util.Base64;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -20,6 +20,14 @@ public class LojawebController {
     @GetMapping("/")
     public String index(@CookieValue(name="loggedUser", defaultValue="") Integer loggedUserId, @CookieValue(name="isUserLogged", defaultValue="false") boolean isLogged, Model model){
         List<ProdutoEntity> produtos = ps.getAllProdutos();
+        
+        for(ProdutoEntity p:produtos){
+            if(p.getImage() != null){
+                byte[] imgBytes = p.getImage();
+                String base64Image = Base64.getEncoder().encodeToString(imgBytes);
+                p.setBase64Image(base64Image);
+            }
+        }
         
         model.addAttribute("isUserLogged", isLogged);
         model.addAttribute("lstProdutos", produtos);

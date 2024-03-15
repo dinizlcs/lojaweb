@@ -14,12 +14,12 @@
         
         <main class="d-flex justify-content-center align-items-center" style="min-height: calc(100vh - 108px);">
             <div class="container" style="margin-left: auto; margin-right: auto;">
-                <form th:action="@{/registerProduct}" th:object="${produto}" method="POST" class="center-form">
+                <form th:action="@{/registerProduct}" th:object="${produto}" method="POST" class="center-form" enctype="multipart/form-data">
                     <h2>Cadastro de produto</h2>
                     <p>
                         <label for="txtImage">Imagem do produto:</label>
                         <br>
-                        <input value="Imagem do produto" type="file" name="image" id="txtImage" accept="image/*" th:field="*{image}">
+                        <input value="Imagem do produto" type="file" name="formImage" id="txtImage" accept="image/*">
                     </p>
                     <p>
                         <label for="txtTitle">Título:</label>
