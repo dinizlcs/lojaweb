@@ -23,6 +23,10 @@ public class ProdutoService {
     
     public ProdutoEntity getProdutoByTitle(String title){
         List<ProdutoEntity> produtosFound = pr.findByTitleContaining(title);
+        if(produtosFound.isEmpty()){
+            return null;
+        }
+        
         return produtosFound.get(0);
     }
     

@@ -27,7 +27,7 @@ footer{
 }
 
 .btn-nav:hover{
-    background-color: RGB(112, 112, 196);
+    background-color: RGB(81, 81, 110);
 }
 
 .btn-card{
@@ -36,6 +36,15 @@ footer{
 
 .btn-card:hover{
     background-color: RGB(82, 82, 166);
+}
+
+.card{
+    border-width: 2px;
+    transition: border-width 0.4s ease;
+}
+
+.card:hover{
+    border-width: 8px;
 }
 
 /*Dropdown*/
@@ -55,11 +64,11 @@ footer{
 .dropdown-content {
   display: none;
   position: absolute;
-  background-color: RGB(112, 112, 196);
+  background-color: RGB(81, 81, 110);
   min-width: 160px;
   box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
   z-index: 1;
-  left: -93px;
+  left: -120px;
 }
 
 .dropdown-content a {
@@ -70,7 +79,7 @@ footer{
 }
 
 .dropdown-content a:hover{
-    background-color: RGB(82, 82, 166);
+    background-color: RGB(111, 111, 140);
 }
 
 .dropdown:hover .dropdown-content{
@@ -78,7 +87,7 @@ footer{
 }
 
 .dropdown:hover .dropbtn{
-    background-color: RGB(112, 112, 196);
+    background-color: RGB(81, 81, 110);
 }
 
 /*Centralizar formulário*/

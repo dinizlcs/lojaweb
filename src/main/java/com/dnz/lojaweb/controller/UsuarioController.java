@@ -14,8 +14,10 @@ import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
+@RequestMapping("/user")
 public class UsuarioController {
     @Autowired
     private UsuarioService us;
@@ -46,10 +48,12 @@ public class UsuarioController {
         if(userFound != null && userFound.getEmail().equals(user.getEmail()) && userFound.getPassword().equals(user.getPassword())){
             Cookie cookieUser = new Cookie("loggedUser", String.valueOf(userFound.getId()));
             cookieUser.setHttpOnly(true);
+            cookieUser.setPath("/");
             response.addCookie(cookieUser);
 
             Cookie cookieIsLogged = new Cookie("isUserLogged", "true");
-            cookieUser.setHttpOnly(true);
+            cookieIsLogged.setHttpOnly(true);
+            cookieIsLogged.setPath("/");
             response.addCookie(cookieIsLogged);
             
             return "redirect:/";
@@ -63,10 +67,12 @@ public class UsuarioController {
     public String logoutUser(HttpServletResponse response){
         Cookie cookieUser = new Cookie("loggedUser", null);
         cookieUser.setMaxAge(0);
+        cookieUser.setPath("/");
         response.addCookie(cookieUser);
         
         Cookie cookieIsLogged = new Cookie("isUserLogged", null);
-        cookieUser.setMaxAge(0);
+        cookieIsLogged.setMaxAge(0);
+        cookieIsLogged.setPath("/");
         response.addCookie(cookieIsLogged);
         
         return "redirect:/";

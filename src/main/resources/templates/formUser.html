@@ -14,7 +14,7 @@
         
         <main class="d-flex justify-content-center align-items-center" style="min-height: calc(100vh - 108px);">
             <div class="container" style="margin-left: auto; margin-right: auto;">
-                <form th:action="${isToSignup} ? @{/signupUser} : @{/loginUser}" th:object="${usuario}" method="POST" class="center-form">
+                <form th:action="${isToSignup} ? @{/user/signupUser} : @{/user/loginUser}" th:object="${usuario}" method="POST" class="center-form">
                     <h2 th:text="${isToSignup} ? 'Cadastro' : 'Login'"></h2>
                     <p>
                         <label for="txtEmail">Email:</label>

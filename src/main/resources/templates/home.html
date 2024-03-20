@@ -27,7 +27,7 @@
                         <div class="card-footer">
                             <p class="card-text">R$<span th:text="${produto.price}"></span></p>
                             <div class="row justify-content-center">
-                                <a class="btn btn-card" th:href="@{detalhes/{id} (id=${produto.id})}">Ver detalhes</a>
+                                <a class="btn btn-card" th:href="@{product/detalhes/{id} (id=${produto.id})}">Ver detalhes</a>
                             </div>
                         </div>
                     </div>

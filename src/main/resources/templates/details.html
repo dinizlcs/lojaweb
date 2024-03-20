@@ -17,8 +17,8 @@
                 <!--Infos do produto-->
                 <div class="row mt-2">
                     <div class="col-lg-6 my-2">
-                        <img th:if="${produto.image != null}" th:src="@{'/produto/imagem/' + ${produto.id}}" style="width: 400px">
-                        <img th:unless="${produto.image != null}" th:src="@{/images/defaultImg.jpg}" style="width: 400px">
+                        <img th:if="${produto.base64Image != null}" th:src="'data:image/jpeg;base64,' + ${produto.base64Image}" style="width: 400px">
+                        <img th:unless="${produto.base64Image != null}" th:src="@{/images/defaultImg.jpg}" style="width: 400px">
                     </div>
                     <div class="col-lg-6">
                         <h1 th:text="${produto.title}"></h1>

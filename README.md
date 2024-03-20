@@ -4,7 +4,7 @@
   Neste primeiro momento, servirá apenas como uma <strong>vitrine virtual</strong>, logo, as funcionalidades de <strong>carrinho e finalização de compra</strong> não estarão
   disponíveis.
 </p>
-<p>Projeto feito para o <strong>técnico em desenvolvimento de sistemas</strong>.</p>
+<p>Projeto iniciado no <strong>técnico em desenvolvimento de sistemas</strong>.</p>
 
 <h3 align="center">⚒ Em desenvolvimento ⚒</h3>
 
@@ -31,7 +31,7 @@
 
 <p><strong>Admin</strong></p>
 <ul>
-  <li> [X] Cadastrar de um produto</li>
+  <li> [X] Cadastrar um produto</li>
   <li> [ ] Editar um produto salvo</li>
   <li> [ ] Excluir um produto salvo</li>
 </ul>

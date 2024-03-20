@@ -7,10 +7,10 @@ import java.util.Base64;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.servlet.ModelAndView;
 
 @Controller
 public class LojawebController {
@@ -18,7 +18,8 @@ public class LojawebController {
     ProdutoService ps;
     
     @GetMapping("/")
-    public String index(@CookieValue(name="loggedUser", defaultValue="") Integer loggedUserId, @CookieValue(name="isUserLogged", defaultValue="false") boolean isLogged, Model model){
+    public ModelAndView index(@CookieValue(name="loggedUser", defaultValue="") Integer loggedUserId, @CookieValue(name="isUserLogged", defaultValue="false") boolean isLogged){
+        ModelAndView mv = new ModelAndView("home");
         List<ProdutoEntity> produtos = ps.getAllProdutos();
         
         for(ProdutoEntity p:produtos){
@@ -29,42 +30,34 @@ public class LojawebController {
             }
         }
         
-        model.addAttribute("isUserLogged", isLogged);
-        model.addAttribute("lstProdutos", produtos);
-        
-        return "home";
+        mv.addObject("isUserLogged", isLogged);
+        mv.addObject("lstProdutos", produtos);
+        return mv;
     }
     
     @GetMapping("/usuario/{regLogin}")
-    public String formUser(@CookieValue(name="loggedUser", defaultValue="") Integer loggedUserId, @CookieValue(name="isUserLogged", defaultValue="false") boolean isLogged, Model model,
+    public ModelAndView formUser(@CookieValue(name="loggedUser", defaultValue="") Integer loggedUserId, @CookieValue(name="isUserLogged", defaultValue="false") boolean isLogged,
     @PathVariable(value="regLogin") String regLogin){
-        model.addAttribute("isUserLogged", isLogged);
-        model.addAttribute("usuario", new UsuarioEntity());
+        ModelAndView mv = new ModelAndView("formUser");
+        
+        mv.addObject("isUserLogged", isLogged);
+        mv.addObject("usuario", new UsuarioEntity());
 
         // Verificar se é para cadastrar e mostrar o form de Cadastro ou de Login
         if(regLogin.equals("cadastro")){
-            model.addAttribute("isToSignup", true);
+            mv.addObject("isToSignup", true);
         }else{
-            model.addAttribute("isToSignup", false);
+            mv.addObject("isToSignup", false);
         }
-        
-        return "formUser";
+        return mv;
     }
     
     @GetMapping("/cadastrar-produto")
-    public String formProduct(@CookieValue(name="isUserLogged", defaultValue="false") boolean isLogged, Model model){
-        model.addAttribute("isUserLogged", isLogged);
-        model.addAttribute("produto", new ProdutoEntity());
+    public ModelAndView formProduct(@CookieValue(name="isUserLogged", defaultValue="false") boolean isLogged){
+        ModelAndView mv = new ModelAndView("formProdRegister");
         
-        return "formProdRegister";
-    }
-    
-    @GetMapping("/detalhes/{id}")
-    public String details(@PathVariable(value="id") Integer id, Model model){
-        ProdutoEntity prodFound = ps.getProdutoById(id);
-        
-        model.addAttribute("produto", prodFound);
-        
-        return "details";
+        mv.addObject("isUserLogged", isLogged);
+        mv.addObject("produto", new ProdutoEntity());
+        return mv;
     }
 }
