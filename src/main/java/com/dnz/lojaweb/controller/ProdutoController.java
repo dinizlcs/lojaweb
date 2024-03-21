@@ -1,9 +1,13 @@
 package com.dnz.lojaweb.controller;
 
+import com.dnz.lojaweb.model.AvaliacoesEntity;
 import com.dnz.lojaweb.model.ProdutoEntity;
+import com.dnz.lojaweb.repository.AvaliacoesService;
 import com.dnz.lojaweb.repository.ProdutoService;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Base64;
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -20,6 +24,9 @@ import org.springframework.web.multipart.MultipartFile;
 public class ProdutoController {
     @Autowired
     ProdutoService ps;
+    
+    @Autowired
+    AvaliacoesService as;
     
     @PostMapping("/registerProduct")
     public String prodRegister(@ModelAttribute("produto") ProdutoEntity produto, @RequestParam("formImage") MultipartFile imgFile){
@@ -52,15 +59,22 @@ public class ProdutoController {
     
     @GetMapping("/detalhes/{id}")
     public String details(@PathVariable(value="id") Integer id, Model model){
+        AvaliacoesEntity newReview = new AvaliacoesEntity();
+        List<AvaliacoesEntity> prodReviews = as.getFirst6Avaliacoes(id);
         ProdutoEntity prodFound = ps.getProdutoById(id);
+        
         if(prodFound.getImage() != null){
             byte[] imgBytes = prodFound.getImage();
             String base64Image = Base64.getEncoder().encodeToString(imgBytes);
             prodFound.setBase64Image(base64Image);
         }
         
-        model.addAttribute("produto", prodFound);
+        newReview.setProduct(prodFound);
         
+        model.addAttribute("countReviews", as.getCountAvaliacoes(id));
+        model.addAttribute("produto", prodFound);
+        model.addAttribute("lstAvaliacoes", prodReviews);
+        model.addAttribute("analise", newReview);
         return "details";
     }
 }

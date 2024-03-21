@@ -43,4 +43,7 @@ public class ProdutoEntity {
     
     @Transient
     private String base64Image;
+    
+    @Transient
+    private Double avgRating;
 }

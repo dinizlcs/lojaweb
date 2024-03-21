@@ -2,6 +2,7 @@ package com.dnz.lojaweb.controller;
 
 import com.dnz.lojaweb.model.ProdutoEntity;
 import com.dnz.lojaweb.model.UsuarioEntity;
+import com.dnz.lojaweb.repository.AvaliacoesService;
 import com.dnz.lojaweb.repository.ProdutoService;
 import java.util.Base64;
 import java.util.List;
@@ -17,6 +18,9 @@ public class LojawebController {
     @Autowired
     ProdutoService ps;
     
+    @Autowired
+    AvaliacoesService as;
+    
     @GetMapping("/")
     public ModelAndView index(@CookieValue(name="loggedUser", defaultValue="") Integer loggedUserId, @CookieValue(name="isUserLogged", defaultValue="false") boolean isLogged){
         ModelAndView mv = new ModelAndView("home");
@@ -28,6 +32,8 @@ public class LojawebController {
                 String base64Image = Base64.getEncoder().encodeToString(imgBytes);
                 p.setBase64Image(base64Image);
             }
+            
+            p.setAvgRating(as.getAvgRatingAvaliacoes(p.getId()));
         }
         
         mv.addObject("isUserLogged", isLogged);

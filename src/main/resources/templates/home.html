@@ -25,6 +25,7 @@
                             <p class="card-text" th:text="${produto.description}"></p>
                         </div>
                         <div class="card-footer">
+                            <p class="text-white">Avaliação média: <span th:text="${produto.avgRating}"></span></p>
                             <p class="card-text">R$<span th:text="${produto.price}"></span></p>
                             <div class="row justify-content-center">
                                 <a class="btn btn-card" th:href="@{product/detalhes/{id} (id=${produto.id})}">Ver detalhes</a>
