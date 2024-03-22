@@ -17,16 +17,16 @@
         <main>
             <div class="container">
                 <div id="produtos" class="row mt-2 justify-content-center">
-                    <div th:each="produto : ${lstProdutos}" class="card mx-2 my-2" style="width: 16rem;">
-                        <img th:if="${produto.base64Image != null}" th:src="'data:image/jpeg;base64,' + ${produto.base64Image}" class="mt-1">
-                        <img th:unless="${produto.base64Image != null}" th:src="@{/images/defaultImg.jpg}" class="mt-1">
-                        <div class="card-body">
-                            <h5 class="card-title" th:text="${produto.title}"></h5>
-                            <p class="card-text" th:text="${produto.description}"></p>
+                    <div th:each="produto : ${lstProdutos}" class="card mx-2 my-2">
+                        <img th:if="${produto.base64Image != null}" th:src="'data:image/jpeg;base64,' + ${produto.base64Image}" class="mt-1" style="height: 228px">
+                        <img th:unless="${produto.base64Image != null}" th:src="@{/images/defaultImg.jpg}" class="mt-1" style="height: 228px">
+                        <div class="card-body ps-0">
+                            <h5 th:if="${#strings.length(produto.title) <= 39}" class="card-title" th:text="${produto.title}"></h5>
+                            <h5 th:unless="${#strings.length(produto.title) <= 39}" class="card-title" th:text="${#strings.substring(produto.title, 0, 39).trim() + '...'}"></h5>
                         </div>
                         <div class="card-footer">
                             <p class="text-white">Avaliação média: <span th:text="${produto.avgRating}"></span></p>
-                            <p class="card-text">R$<span th:text="${produto.price}"></span></p>
+                            <p class="card-text">R$<span th:text="${#strings.replace(produto.price, '.', ',')}"></span></p>
                             <div class="row justify-content-center">
                                 <a class="btn btn-card" th:href="@{product/detalhes/{id} (id=${produto.id})}">Ver detalhes</a>
                             </div>

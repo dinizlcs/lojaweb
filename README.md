@@ -1,10 +1,6 @@
 <h1>Lojaweb</h1>
-<p>Projeto para venda de produtos na web. Não será um marktplace, será um e-commerce para que uma loja única possa vender seus produtos online.</p>
-<p>
-  Neste primeiro momento, servirá apenas como uma <strong>vitrine virtual</strong>, logo, as funcionalidades de <strong>carrinho e finalização de compra</strong> não estarão
-  disponíveis.
-</p>
-<p>Projeto iniciado no <strong>técnico em desenvolvimento de sistemas</strong>.</p>
+<p>Projeto para venda de produtos na web. Será um e-commerce para que uma loja única possa vender seus produtos online.</p>
+<p>Projeto iniciado no <strong>técnico em desenvolvimento de sistemas no Senac</strong>.</p>
 
 <h3 align="center">⚒ Em desenvolvimento ⚒</h3>
 
@@ -34,6 +30,7 @@
   <li> [X] Cadastrar um produto</li>
   <li> [ ] Editar um produto salvo</li>
   <li> [ ] Excluir um produto salvo</li>
+  <li> [ ] Cadastrar outro usuário como admin</li>
 </ul>
 
 <p><strong>Tela inicial</strong></p>
@@ -43,8 +40,9 @@
 
 <p><strong>Tela de detalhes</strong></p>
 <ul>
-  <li> [ ] Mostrar mais informações sobre o produto selecionado</li>
-  <li> [ ] Mostrar avaliações do produto</li>
+  <li> [X] Mostrar mais informações sobre o produto selecionado</li>
+  <li> [X] Mostrar avaliações do produto</li>
+  <li> [ ] Permitir o usuário adicionar o produto ao carrinho</li>
 </ul>
 
 <p><strong>Tela de carrinho</strong></p>

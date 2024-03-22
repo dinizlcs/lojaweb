@@ -6,6 +6,8 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         
         <th:block th:insert="~{fragments/baseUtils.html :: links}"></th:block>
+        
+        <link rel="stylesheet" th:href="@{/css/details.css}">
     </head>
     <body>
         <header>
@@ -38,15 +40,17 @@
                     <th:block th:if="${lstAvaliacoes != null}">
                         <div class="row justify-content-center">
                             <div class="row">
-                                <div th:each="avaliacao, index : ${lstAvaliacoes}" th:if="${index.index &lt; 3}" class="col-lg me-1 mt-1 p-2" style="background-color: RGB(154, 146, 113);">
+                                <div th:each="avaliacao, index : ${lstAvaliacoes}" th:if="${index.index < 3}" class="col-lg me-1 mt-1 p-2 rating-box">
                                     <h6>Nota: <span th:text="${avaliacao.rating}"></span></h6>
-                                    <p th:text="${avaliacao.review}"></p>
+                                    <p th:if="${#strings.length(avaliacao.review) <= 130}" th:text="${avaliacao.review}"></p>
+                                    <p th:unless="${#strings.length(avaliacao.review) <= 130}">
+                                        <span th:text="${#strings.substring(avaliacao.review, 0, 120).trim() + '...'}"></span>
+                                        <a href="#">Ver mais</a>
+                                    </p>
                                 </div>
                             </div>
-                        </div>
-                        <div class="row justify-content-center">
                             <div class="row">
-                                <div th:each="avaliacao, index : ${lstAvaliacoes}" th:if="${index.index &gt;= 3 &amp;&amp; index.index &lt; 6}" class="col-lg me-1 mt-1 p-2" style="background-color: RGB(154, 146, 113);">
+                                <div th:each="avaliacao, index : ${lstAvaliacoes}" th:if="${index.index >= 3 && index.index < 6}" class="col-lg me-1 mt-1 p-2 rating-box">
                                     <h6>Nota: <span th:text="${avaliacao.rating}"></span></h6>
                                     <p th:text="${avaliacao.review}"></p>
                                 </div>
@@ -73,9 +77,9 @@
                         <p>
                             <label for="review">Comentário:</label>
                             <br>
-                            <input type="text" id="txtReview" th:field="*{review}">
+                            <textarea id="txaReview" maxlength="255" th:field="*{review}"></textarea>
                         </p>
-                        <input type="submit" value="Enviar" class="btn btn-card">
+                        <input type="submit" value="Enviar" class="btn">
                     </form>
                 </div>
             </div>
@@ -92,6 +96,12 @@
         
                 $('#rngRating').on('input', function(){
                     $('#valNota').text($(this).val());
+                });
+                
+                $('#txaReview').keydown(function(event){
+                    if(event.key === 'Enter'){
+                        event.preventDefault();
+                    }
                 });
             });
         </script>
