@@ -4,8 +4,9 @@ import com.dnz.lojaweb.model.AvaliacoesEntity;
 import com.dnz.lojaweb.model.ProdutoEntity;
 import com.dnz.lojaweb.repository.AvaliacoesService;
 import com.dnz.lojaweb.repository.ProdutoService;
+import com.dnz.lojaweb.utils.SessionManager;
+import jakarta.servlet.http.HttpSession;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Base64;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,6 +28,9 @@ public class ProdutoController {
     
     @Autowired
     AvaliacoesService as;
+    
+    @Autowired
+    SessionManager sm;
     
     @PostMapping("/registerProduct")
     public String prodRegister(@ModelAttribute("produto") ProdutoEntity produto, @RequestParam("formImage") MultipartFile imgFile){
@@ -58,7 +62,7 @@ public class ProdutoController {
     }
     
     @GetMapping("/detalhes/{id}")
-    public String details(@PathVariable(value="id") Integer id, Model model){
+    public String details(@PathVariable(value="id") Integer id, Model model, HttpSession session){
         AvaliacoesEntity newReview = new AvaliacoesEntity();
         List<AvaliacoesEntity> prodReviews = as.getFirst6Avaliacoes(id);
         ProdutoEntity prodFound = ps.getProdutoById(id);
@@ -71,6 +75,7 @@ public class ProdutoController {
         
         newReview.setProduct(prodFound);
         
+        model.addAttribute("isUserLogged", sm.isUserLogged(session));
         model.addAttribute("countReviews", as.getCountAvaliacoes(id));
         model.addAttribute("produto", prodFound);
         model.addAttribute("lstAvaliacoes", prodReviews);

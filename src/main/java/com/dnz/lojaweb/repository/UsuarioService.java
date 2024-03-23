@@ -16,7 +16,7 @@ public class UsuarioService {
         return user;
     }
     
-    public UsuarioEntity getUserEmail(String email){
+    public UsuarioEntity getUserByEmail(String email){
         return ur.findByEmail(email);
     }
 }

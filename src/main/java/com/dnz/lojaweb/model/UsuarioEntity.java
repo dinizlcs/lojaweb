@@ -25,4 +25,11 @@ public class UsuarioEntity {
     @NotBlank(message="Digite uma senha")
     @Size(min=5, message="A senha deve ter no mínimo 5 caracteres")
     private String password;
+    
+    private String accessLvl;
+    
+    public UsuarioEntity(){
+        // Ao criar um novo usuário por padrão o seu nível de acesso é o "comum"
+        this.accessLvl = "common";
+    }
 }
