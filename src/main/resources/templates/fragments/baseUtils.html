@@ -35,7 +35,9 @@
                         <a th:href="@{/usuario/{regLogin} (regLogin='cadastro')}">Cadastrar</a>
                     </div>
                     <div th:if="${isUserLogged}" class="dropdown-content">
-                        <a th:href="@{/cadastrar-produto}">Cadastrar produto</a>
+                        <th:block th:if="${userLvl == 'admin'}">
+                            <a th:href="@{/cadastrar-produto}">Cadastrar produto</a>
+                        </th:block>
                         <a th:href="@{/user/logoutUser}">Sair</a>
                     </div>
                 </div>

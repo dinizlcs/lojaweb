@@ -3,7 +3,7 @@ $bgBtnNav: RGB(81, 81, 110);
 $bgBtnCard: RGB(112, 112, 196);
 
 body{
-    background-color: RGB(109, 109, 133)
+    background-color: RGB(109, 117, 133);
 }
 
 main{
@@ -76,7 +76,7 @@ nav{
     position: absolute;
     background-color: $bgBtnNav;
     min-width: 160px;
-    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    box-shadow: 0px 8px 24px 0px rgb(51, 51, 70);
     z-index: 1;
     left: -120px;
 

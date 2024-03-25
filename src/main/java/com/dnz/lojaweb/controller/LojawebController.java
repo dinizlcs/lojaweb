@@ -41,6 +41,9 @@ public class LojawebController {
         }
         
         mv.addObject("isUserLogged", sm.isUserLogged(session));
+        if(sm.isUserLogged(session)){
+            mv.addObject("userLvl", sm.getLoggedUser(session).getAccessLvl());
+        }
         mv.addObject("lstProdutos", produtos);
         return mv;
     }
@@ -50,6 +53,9 @@ public class LojawebController {
         ModelAndView mv = new ModelAndView("formUser");
         
         mv.addObject("isUserLogged", sm.isUserLogged(session));
+        if(sm.isUserLogged(session)){
+            mv.addObject("userLvl", sm.getLoggedUser(session).getAccessLvl());
+        }
         mv.addObject("usuario", new UsuarioEntity());
 
         // Verificar se é para cadastrar e mostrar o form de Cadastro ou de Login
@@ -63,10 +69,16 @@ public class LojawebController {
     
     @GetMapping("/cadastrar-produto")
     public ModelAndView formProduct(HttpSession session){
-        ModelAndView mv = new ModelAndView("formProdRegister");
+        if(sm.isUserLogged(session) && sm.getLoggedUser(session).getAccessLvl().equals("admin")){
+            ModelAndView mv = new ModelAndView("formProdRegister");
         
-        mv.addObject("isUserLogged", sm.isUserLogged(session));
-        mv.addObject("produto", new ProdutoEntity());
+            mv.addObject("isUserLogged", sm.isUserLogged(session));
+            mv.addObject("userLvl", sm.getLoggedUser(session).getAccessLvl());
+            mv.addObject("produto", new ProdutoEntity());
+            return mv;
+        }
+        
+        ModelAndView mv = new ModelAndView("redirect:/");
         return mv;
     }
 }
