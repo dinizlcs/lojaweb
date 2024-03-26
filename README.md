@@ -1,5 +1,5 @@
 <h1>Lojaweb</h1>
-<p>Projeto para venda de produtos na web. Será um e-commerce para que uma loja única possa vender seus produtos online.</p>
+<p>Projeto para venda de produtos na web. Será um e-commerce para que uma loja possa vender seus produtos online.</p>
 <p>Projeto iniciado no <strong>técnico em desenvolvimento de sistemas no Senac</strong>.</p>
 
 <h3 align="center">⚒ Em desenvolvimento ⚒</h3>
@@ -29,7 +29,7 @@
 <ul>
   <li> [X] Cadastrar um produto</li>
   <li> [X] Editar um produto salvo</li>
-  <li> [ ] Excluir um produto salvo</li>
+  <li> [X] Excluir um produto salvo</li>
   <li> [ ] Cadastrar outro usuário como admin</li>
 </ul>
 

@@ -13,31 +13,37 @@
         </header>
         
         <main class="d-flex justify-content-center align-items-center" style="min-height: calc(100vh - 108px);">
-            <div class="container" style="margin-left: auto; margin-right: auto;">
-                <form th:action="@{/product/registerProduct}" th:object="${produto}" method="POST" class="center-form" enctype="multipart/form-data">
-                    <h2>Cadastrar produto</h2>
-                    <p>
-                        <label for="txtImage">Imagem do produto:</label>
-                        <br>
-                        <input value="Imagem do produto" type="file" name="formImage" id="txtImage" accept="image/*">
-                    </p>
-                    <p>
-                        <label for="txtTitle">Título:</label>
-                        <br>
-                        <input type="text" name="title" id="txtTitle" th:field="*{title}" required>
-                    </p>
-                    <p>
-                        <label for="txtDescription">Descrição:</label>
-                        <br>
-                        <input type="text" name="description" id="txtDescription" th:field="*{description}" required>
-                    </p>
-                    <p>
-                        <label for="txtPrice">Preço:</label>
-                        <br>
-                        <input type="text" name="price" id="txtPrice" th:field="*{price}" pattern="[0-9]+([\,.][0-9]+)?" required>
-                    </p>
-                    <input type="submit" value="Enviar" class="btn btn-card">
-                </form>
+            <div class="text-center">
+                <div class="row justify-content-center">
+                    <div class="col-md-12">
+                        <div class="customForm-bg p-4 mx-auto my-3" style="max-width: 400px;">
+                            <form th:action="@{/product/registerProduct}" th:object="${produto}" method="POST" class="center-form" enctype="multipart/form-data">
+                                <h2>Cadastrar produto</h2>
+                                <p class="text-start">
+                                    <label for="txtImage" class="form-label">Imagem do produto:</label>
+                                    <br/>
+                                    <input value="Imagem do produto" type="file" name="formImage" id="txtImage" accept="image/*" class="form-control"/>
+                                </p>
+                                <p class="text-start">
+                                    <label for="txtTitle" class="form-label">Título:</label>
+                                    <br/>
+                                    <input type="text" name="title" id="txtTitle" th:field="*{title}" required class="form-control"/>
+                                </p>
+                                <p class="text-start">
+                                    <label for="txtDescription" class="form-label">Descrição:</label>
+                                    <br/>
+                                    <input type="text" name="description" id="txtDescription" th:field="*{description}" required class="form-control"/>
+                                </p>
+                                <p class="text-start">
+                                    <label for="txtPrice" class="form-label">Preço:</label>
+                                    <br/>
+                                    <input type="text" name="price" id="txtPrice" th:field="*{price}" pattern="[0-9]+([\,.][0-9]+)?" required class="form-control"/>
+                                </p>
+                                <input type="submit" value="Enviar" class="btn btn-card"/>
+                            </form>
+                        </div>
+                    </div>
+                </div>
             </div>
         </main>
         

@@ -42,6 +42,15 @@ public class ProdutoService {
         return prodToUpdate;
     }
     
+    public ProdutoEntity deleteProduto(ProdutoEntity prodToDelete){
+        ProdutoEntity prodFound = getProdutoById(prodToDelete.getId());
+        if(prodFound != null){
+            pr.delete(prodFound);
+        }
+        
+        return prodFound;
+    }
+    
     public List<ProdutoEntity> getAllProdutos(){
         return pr.findAll();
     }
