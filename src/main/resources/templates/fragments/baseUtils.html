@@ -28,15 +28,16 @@
                 </form>
             </div>
             <div class="float-end">
-                <div class="dropdown">
+                <div class="dropdown" th:object="${navUser}">
                     <button class="dropbtn"><i class="fa-solid fa-user"></i></button>
-                    <div th:if="${isUserLogged == false}" class="dropdown-content">
+                    <div th:if="${navUser == null}" class="dropdown-content">
                         <a th:href="@{/usuario/{regLogin} (regLogin='login')}">Login</a>
                         <a th:href="@{/usuario/{regLogin} (regLogin='cadastro')}">Cadastrar</a>
                     </div>
-                    <div th:if="${isUserLogged}" class="dropdown-content">
-                        <th:block th:if="${userLvl == 'admin'}">
+                    <div th:unless="${navUser == null}" class="dropdown-content">
+                        <th:block th:if="${navUser.accessLvl == 'admin'}">
                             <a th:href="@{/cadastrar-produto}">Cadastrar produto</a>
+                            <a th:href="@{/editar-produto}">Editar produto</a>
                         </th:block>
                         <a th:href="@{/user/logoutUser}">Sair</a>
                     </div>

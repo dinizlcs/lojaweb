@@ -28,7 +28,7 @@
 <p><strong>Admin</strong></p>
 <ul>
   <li> [X] Cadastrar um produto</li>
-  <li> [ ] Editar um produto salvo</li>
+  <li> [X] Editar um produto salvo</li>
   <li> [ ] Excluir um produto salvo</li>
   <li> [ ] Cadastrar outro usuário como admin</li>
 </ul>

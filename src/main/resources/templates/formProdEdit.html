@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <title>Editar produto</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            
+        <th:block th:insert="~{/fragments/baseUtils.html :: links}"></th:block>
+        
+        <style>
+            .customForm-bg{
+                width: fit-content;
+                background-color: RGB(133, 128, 109) !important;
+                border: 4px solid RGB(51, 51, 70) !important;
+                border-radius: 16px !important;
+            }
+        </style>
+    </head>
+    <body>
+        <header th:insert="~{/fragments/baseUtils.html :: navbar}"></header>
+        
+        <main class="d-flex justify-content-center align-items-center" style="min-height: calc(100vh - 108px);">
+            <div class="text-center">
+                <div class="row justify-content-center">
+                    <div class="col-md-12">
+                        <div class="customForm-bg p-4 mx-auto my-3" style="max-width: 400px;">
+                            <form id="formEditProduct" th:action="@{/product/editProduct}" th:object="${produto}" method="POST" enctype="multipart/form-data">
+                                <h2>Editar produto</h2>
+                                <input type="hidden" id="txtId" name="id">
+                                <br>
+                                <p>
+                                    <select id="selectProduct" name="selectProduct" class="form-select w-100">
+                                        <option value="-1">Selecione um produto...</option>
+                                        <option th:each="produto : ${lstProdutos}" th:value="${produto.id}"><span th:text="${produto.id} + '- ' + ${produto.title}"></span></option>
+                                    </select>
+                                </p>
+                                <p class="text-start">
+                                    <label for="fileImage" class="form-label">Imagem do produto:</label>
+                                    <br>
+                                    <input value="Imagem do produto" type="file" name="formImage" id="fileImage" accept="image/*" class="form-control">
+                                    <br>
+                                    <p class="text-start">Preview da imagem salva</p>
+                                    <img class="d-block mx-auto" id="imgPreview" src="" alt="Imagem do produto" style="max-height: 150px;">
+                                </p>
+                                <p class="text-start">
+                                    <label for="txtTitle" class="form-label">Título:</label>
+                                    <br>
+                                    <input type="text" name="title" id="txtTitle" required class="form-control">
+                                </p>
+                                <p class="text-start">
+                                    <label for="txtDescription" class="form-label">Descrição:</label>
+                                    <br>
+                                    <input type="text" name="description" id="txtDescription" required class="form-control">
+                                </p>
+                                <p class="text-start">
+                                    <label for="txtPrice" class="form-label">Preço:</label>
+                                    <br>
+                                    <input type="text" name="price" id="txtPrice" pattern="[0-9]+([\,.][0-9]+)?" required class="form-control">
+                                </p>
+                                <input type="submit" value="Editar" class="btn btn-card col-6">
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+        
+        <footer></footer>
+        
+        <script>
+            $(document).ready(function() {
+                $('#formEditProduct').submit(function(e){
+                    var selectValue = $('#selectProduct').val();
+                    if(selectValue > -1){
+                        return true;
+                    }else{
+                        alert('Selecione um produto para editar');
+                        e.preventDefault();
+                        return false;
+                    }
+                });
+                
+                $('#selectProduct option').each(function() {
+                    var text = $(this).text();
+                    if(text.length > 30){
+                        var maxLenText = text.substr(0, 30) + '...';
+                    }else{
+                        var maxLenText = text;
+                    }
+                    $(this).text(maxLenText);
+                    $(this).attr('title', text);
+                });
+                
+                $('#selectProduct').change(function(){
+                    var productId = $(this).val();
+                    if(productId != -1){
+                        $.ajax({
+                            type: "GET",
+                            url: "/product/getProductInfo/" + productId,
+                            success: function(response){
+                                $('#txtId').val(response.id);
+                                $('#txtTitle').val(response.title);
+                                $('#txtDescription').val(response.description);
+                                $('#txtPrice').val(response.price);
+                                
+                                if(response.base64Image){
+                                    $('#imgPreview').attr('src', 'data:image/jpeg;base64,' + response.base64Image);
+                                }else{
+                                    $('#imgPreview').attr('src', '');
+                                }
+                            }
+                        });
+                    }else{
+                        $('#txtId').val('');
+                        $('#txtTitle').val('');
+                        $('#txtDescription').val('');
+                        $('#txtPrice').val('');
+                        $('#fileImage').val('');
+                        $('#imgPreview').attr('src', '');
+                    }
+                });
+            });
+        </script>
+    </body>
+</html>

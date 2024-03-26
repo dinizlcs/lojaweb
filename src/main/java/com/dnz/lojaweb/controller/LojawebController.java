@@ -40,10 +40,7 @@ public class LojawebController {
             p.setAvgRating(as.getAvgRatingAvaliacoes(p.getId()));
         }
         
-        mv.addObject("isUserLogged", sm.isUserLogged(session));
-        if(sm.isUserLogged(session)){
-            mv.addObject("userLvl", sm.getLoggedUser(session).getAccessLvl());
-        }
+        mv.addObject("navUser", sm.getLoggedUser(session));
         mv.addObject("lstProdutos", produtos);
         return mv;
     }
@@ -52,10 +49,7 @@ public class LojawebController {
     public ModelAndView formUser(@PathVariable(value="regLogin") String regLogin, HttpSession session){
         ModelAndView mv = new ModelAndView("formUser");
         
-        mv.addObject("isUserLogged", sm.isUserLogged(session));
-        if(sm.isUserLogged(session)){
-            mv.addObject("userLvl", sm.getLoggedUser(session).getAccessLvl());
-        }
+        mv.addObject("navUser", sm.getLoggedUser(session));
         mv.addObject("usuario", new UsuarioEntity());
 
         // Verificar se é para cadastrar e mostrar o form de Cadastro ou de Login
@@ -68,17 +62,29 @@ public class LojawebController {
     }
     
     @GetMapping("/cadastrar-produto")
-    public ModelAndView formProduct(HttpSession session){
+    public ModelAndView formRegisterProduct(HttpSession session){
         if(sm.isUserLogged(session) && sm.getLoggedUser(session).getAccessLvl().equals("admin")){
             ModelAndView mv = new ModelAndView("formProdRegister");
         
-            mv.addObject("isUserLogged", sm.isUserLogged(session));
-            mv.addObject("userLvl", sm.getLoggedUser(session).getAccessLvl());
+            mv.addObject("navUser", sm.getLoggedUser(session));
             mv.addObject("produto", new ProdutoEntity());
             return mv;
         }
         
         ModelAndView mv = new ModelAndView("redirect:/");
         return mv;
+    }
+    
+    @GetMapping("/editar-produto")
+    public ModelAndView formEditProduct(HttpSession session){
+        if(sm.isUserLogged(session) && sm.getLoggedUser(session).getAccessLvl().equals("admin")){
+            ModelAndView mv = new ModelAndView("formProdEdit");
+        
+            mv.addObject("navUser", sm.getLoggedUser(session));
+            mv.addObject("lstProdutos", ps.getAllProdutos());
+            return mv;
+        }
+        
+        return new ModelAndView("redirect:/");
     }
 }

@@ -26,7 +26,7 @@ public class UsuarioController {
     @PostMapping("/signupUser")
     public String registerUser(@Valid @ModelAttribute("usuario") UsuarioEntity user, BindingResult result, Model model, HttpSession session){
         if(result.hasErrors()){
-            model.addAttribute("isUserLogged", sm.isUserLogged(session));
+            model.addAttribute("navUser", sm.getLoggedUser(session));
             model.addAttribute("isToSignup", true);
             return "formUser";
         }
@@ -37,7 +37,7 @@ public class UsuarioController {
             us.saveUsuario(user);
         }else{
             result.rejectValue("email", "error.user", "o email já está cadastrado.");
-            model.addAttribute("isUserLogged", sm.isUserLogged(session));
+            model.addAttribute("navUser", sm.getLoggedUser(session));
             model.addAttribute("isToSignup", true);
             return "formUser";
         }

@@ -2,6 +2,8 @@
     width: 16rem;
     max-width: 256px !important;
     max-height: 459px !important;
+    min-width: 256px !important;
+    min-height: 459px !important;
     
     background-color: RGB(133, 128, 109);
     border-color: RGB(51, 51, 70);

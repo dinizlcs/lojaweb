@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 @Controller
@@ -51,6 +52,13 @@ public class ProdutoController {
         return "redirect:/cadastrar-produto";
     }
     
+    @PostMapping("/editProduct")
+    public String editProduct(@ModelAttribute("produto") ProdutoEntity updatedProduto, @RequestParam("formImage") MultipartFile imgFile){
+        ps.updProduto(updatedProduto, imgFile);
+        
+        return "redirect:/editar-produto";
+    }
+    
     @PostMapping("/searchProduto")
     public String prodSearch(@RequestParam("tituloProduto") String tituloProduto){
         ProdutoEntity prodFound = ps.getProdutoByTitle(tituloProduto);
@@ -75,11 +83,29 @@ public class ProdutoController {
         
         newReview.setProduct(prodFound);
         
-        model.addAttribute("isUserLogged", sm.isUserLogged(session));
+        model.addAttribute("navUser", sm.getLoggedUser(session));
         model.addAttribute("countReviews", as.getCountAvaliacoes(id));
         model.addAttribute("produto", prodFound);
         model.addAttribute("lstAvaliacoes", prodReviews);
         model.addAttribute("analise", newReview);
         return "details";
+    }
+    
+    @GetMapping("/getProductInfo/{id}")
+    @ResponseBody
+    public ProdutoEntity getProductInfo(@PathVariable Integer id){
+        ProdutoEntity prodDetails = ps.getProdutoById(id);
+        
+        if(prodDetails.getImage() == null){
+            prodDetails.setBase64Image("D:/OneDrive/Documentos/NetBeansProjects/lojaweb/src/main/resources/static/images/defaultImg.jpg");
+        }else{
+            byte[] imgBytes = prodDetails.getImage();
+            if(imgBytes != null){
+                String base64Image = Base64.getEncoder().encodeToString(imgBytes);
+                prodDetails.setBase64Image(base64Image);
+            }
+        }
+        
+        return prodDetails;
     }
 }
