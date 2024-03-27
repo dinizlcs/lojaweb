@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 @RequestMapping("/user")
@@ -24,16 +25,22 @@ public class UsuarioController {
     private SessionManager sm;
     
     @PostMapping("/signupUser")
-    public String registerUser(@Valid @ModelAttribute("usuario") UsuarioEntity user, BindingResult result, Model model, HttpSession session){
+    public String registerUser(@Valid @ModelAttribute("usuario") UsuarioEntity user, @RequestParam(name="chkRegAsAdmin", defaultValue="false") boolean newAdmin, BindingResult result, Model model,
+    HttpSession session){
         if(result.hasErrors()){
             model.addAttribute("navUser", sm.getLoggedUser(session));
             model.addAttribute("isToSignup", true);
             return "formUser";
         }
         
-        UsuarioEntity userExists = us.getUserByEmail(user.getEmail());
+        System.out.println(newAdmin);
         
+        UsuarioEntity userExists = us.getUserByEmail(user.getEmail());
         if(userExists == null){
+            if(newAdmin){
+                user.setAccessLvl("admin");
+            }
+            
             us.saveUsuario(user);
         }else{
             result.rejectValue("email", "error.user", "o email já está cadastrado.");
@@ -42,7 +49,11 @@ public class UsuarioController {
             return "formUser";
         }
         
-        return "redirect:/usuario/login";
+        if(sm.isUserLogged(session)){
+            return "redirect:/usuario/cadastro";
+        }else{
+            return "redirect:/usuario/login";
+        }
     }
     
     @PostMapping("/loginUser")

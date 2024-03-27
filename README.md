@@ -30,7 +30,7 @@
   <li> [X] Cadastrar um produto</li>
   <li> [X] Editar um produto salvo</li>
   <li> [X] Excluir um produto salvo</li>
-  <li> [ ] Cadastrar outro usuário como admin</li>
+  <li> [X] Cadastrar outro usuário como admin</li>
 </ul>
 
 <p><strong>Tela inicial</strong></p>

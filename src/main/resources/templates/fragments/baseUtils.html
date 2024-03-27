@@ -36,6 +36,7 @@
                     </div>
                     <div th:unless="${navUser == null}" class="dropdown-content">
                         <th:block th:if="${navUser.accessLvl == 'admin'}">
+                            <a th:href="@{/usuario/{regLogin} (regLogin='cadastro')}">Cadastrar usuário</a>
                             <a th:href="@{/cadastrar-produto}">Cadastrar produto</a>
                             <a th:href="@{/editar-produto}">Editar produto</a>
                         </th:block>

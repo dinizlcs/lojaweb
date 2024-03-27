@@ -19,18 +19,24 @@
                         <div class="customForm-bg p-4 mx-auto" style="max-width: 400px;"> <!-- Definindo largura máxima -->
                             <form th:action="${isToSignup} ? @{/user/signupUser} : @{/user/loginUser}" th:object="${usuario}" method="POST">
                                 <h2 th:text="${isToSignup} ? 'Cadastro' : 'Login'"></h2>
-                                <p style="text-align: left;">
-                                    <label for="txtEmail">Email:</label>
-                                    <br>
-                                    <input type="email" name="email" id="txtEmail" th:field="*{email}">
+                                <br/>
+                                <p class="text-start" th:if="${isToSignup && navUser != null && navUser.accessLvl == 'admin'}">
+                                    <input id="chkRegAsAdmin" name="chkRegAsAdmin" value="true" type="checkbox" class="form-check-input"/>
+                                    <label for="chkRegAsAdmin" class="form-label">Definir usuário como administrador?</label>
+                                </p>
+                                <p class="text-start">
+                                    <label for="txtEmail" class="form-label">Email:</label>
+                                    <br/>
+                                    <input type="email" name="email" id="txtEmail" th:field="*{email}" class="form-control" required/>
                                     <span class="text-danger" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></span>
                                 </p>
-                                <p style="text-align: left;">
-                                    <label for="txtPassword">Senha:</label>
-                                    <br>
-                                    <input type="password" name="password" id="txtPassword" th:field="*{password}">
+                                <p  class="text-start">
+                                    <label for="txtPassword" class="form-label">Senha:</label>
+                                    <br/>
+                                    <input type="password" name="password" id="txtPassword" th:field="*{password}" class="form-control" required/>
                                     <span class="text-danger" th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></span>
                                 </p>
+                                <br/>
                                 <input type="submit" value="Enviar" class="btn btn-card col-6">
                             </form>
                         </div>
