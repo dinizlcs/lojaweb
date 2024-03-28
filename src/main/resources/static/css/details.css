@@ -17,6 +17,12 @@
     font-weight: bold;
 }
 
+.custom-img{
+    max-width: 100% !important;
+    max-height: 400px !important;
+    min-height: 400px !important;
+}
+
 textarea{
     width: 240px;
     height: 120px;

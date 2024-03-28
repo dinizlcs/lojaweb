@@ -17,20 +17,24 @@
         <main>
             <div class="container">
                 <!--Infos do produto-->
-                <div class="row mt-2">
-                    <div class="col-lg-6 my-2">
-                        <img th:if="${produto.base64Image != null}" th:src="'data:image/jpeg;base64,' + ${produto.base64Image}" style="width: 400px">
-                        <img th:unless="${produto.base64Image != null}" th:src="@{/images/defaultImg.jpg}" style="width: 400px">
+                <div class="row my-2">
+                    <div class="col-sm">
+                        <img th:if="${produto.base64Image != null}" th:src="'data:image/jpeg;base64,' + ${produto.base64Image}" class="custom-img">
+                        <img th:unless="${produto.base64Image != null}" th:src="@{/images/defaultImg.jpg}" class="custom-img">
                     </div>
-                    <div class="col-lg-6">
-                        <h1 th:text="${produto.title}"></h1>
-                        <h3>R$ <span th:text="${produto.price}"></span></h3>
-                        <!--<a class="btn btn-secondary" href="#">Comprar</a>-->
+                    <div class="col-sm d-flex flex-column justify-content-between">
+                        <div>
+                            <h1 th:text="${produto.title}"></h1>
+                            <h3>R$ <span th:text="${#strings.replace(produto.price, '.', ',')}"></span></h3>
+                        </div>
+                        <div class="text-end">
+                            <a class="btn btn-card" href="#" style="font-size: 20pt"><i class="fas fa-shopping-basket"></i> Comprar</a>
+                        </div>
                     </div>
-                    <hr>
-                    <div class="col-lg-6">
-                        
-                        <h5>Descrição</h5>
+                </div>
+                <div class="row" style="border-top: 2px solid RGB(51, 51, 70);">
+                    <div class="col">
+                        <h4>Descrição</h4>
                         <p th:text="${produto.description}"></p>
                     </div>
                 </div>
@@ -72,7 +76,7 @@
                         <p>
                             <label for="rating">Nota: <span id="valNota"></span></label>
                             <br>
-                            <input type="range" id="rngRating" min="0" max="5" step="1" value="0" th:field="*{rating}">
+                            <input type="range" id="rngRating" min="1" max="5" th:field="*{rating}">
                         </p>
                         <p>
                             <label for="review">Comentário:</label>

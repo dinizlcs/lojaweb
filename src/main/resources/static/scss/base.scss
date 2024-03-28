@@ -51,10 +51,12 @@ nav{
 }
 
 .btn-card{
-    background-color: $bgBtnCard;
+    background-color: $bgHeaderFooter;
+    color: white;
     
     &:hover{
-        background-color: RGB(82, 82, 166);
+        background-color: RGB(21, 21, 40);
+        color: white;
     }
 }
 

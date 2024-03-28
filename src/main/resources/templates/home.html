@@ -25,10 +25,14 @@
                             <h5 th:unless="${#strings.length(produto.title) <= 39}" class="card-title" th:text="${#strings.substring(produto.title, 0, 39).trim() + '...'}"></h5>
                         </div>
                         <div class="card-footer">
-                            <p class="text-white">Avaliação média: <span th:text="${produto.avgRating}"></span></p>
+                            <p class="text-white">Avaliação média: 
+                                <span th:if="${produto.avgRating > 0}" th:text="${produto.avgRating}"></span>
+                                <span th:unless="${produto.avgRating > 0}">N/a</span>
+                            </p>
                             <p class="card-text">R$<span th:text="${#strings.replace(produto.price, '.', ',')}"></span></p>
                             <div class="row justify-content-center">
                                 <a class="btn btn-card" th:href="@{product/detalhes/{id} (id=${produto.id})}">Ver detalhes</a>
+                                <a class="btn btn-card mt-1" href="#"><i class="fa-solid fa-circle-plus"></i> Carrinho</a>
                             </div>
                         </div>
                     </div>
