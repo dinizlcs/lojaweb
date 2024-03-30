@@ -33,8 +33,6 @@ public class UsuarioController {
             return "formUser";
         }
         
-        System.out.println(newAdmin);
-        
         UsuarioEntity userExists = us.getUserByEmail(user.getEmail());
         if(userExists == null){
             if(newAdmin){

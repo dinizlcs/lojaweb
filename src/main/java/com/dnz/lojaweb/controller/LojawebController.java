@@ -24,7 +24,7 @@ public class LojawebController {
     
     @Autowired
     SessionManager sm;
-    
+     
     @GetMapping("/")
     public ModelAndView index(HttpSession session){
         ModelAndView mv = new ModelAndView("home");
@@ -58,6 +58,14 @@ public class LojawebController {
         }else{
             mv.addObject("isToSignup", false);
         }
+        return mv;
+    }
+    
+    @GetMapping("/carrinho")
+    public ModelAndView cart(HttpSession session){
+        ModelAndView mv = new ModelAndView("cart");
+        
+        mv.addObject("navUser", sm.getLoggedUser(session));
         return mv;
     }
     
