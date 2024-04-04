@@ -63,10 +63,32 @@ public class LojawebController {
     
     @GetMapping("/carrinho")
     public ModelAndView cart(HttpSession session){
-        ModelAndView mv = new ModelAndView("cart");
+        if(sm.isUserLogged(session)){
+            ModelAndView mv = new ModelAndView("cart");
+
+            List<ProdutoEntity> cart = sm.getCart(session);
+            double total = 0;
+            for(ProdutoEntity p : cart){
+                total += p.getPrice();
+            }
+
+            mv.addObject("navUser", sm.getLoggedUser(session));
+            mv.addObject("lstCart", cart);
+            mv.addObject("totalValue", total);
+            return mv;
+        }
         
-        mv.addObject("navUser", sm.getLoggedUser(session));
-        return mv;
+        return new ModelAndView("redirect:/usuario/login");
+    }
+    
+    @GetMapping("/compra-finalizada")
+    public String purFinalized(HttpSession session){
+        if(sm.isUserLogged(session)){
+            sm.clearCart(session);
+            return "purFinalized";
+        }else{
+            return "redirect:/";
+        }
     }
     
     @GetMapping("/cadastrar-produto")

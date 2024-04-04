@@ -71,6 +71,30 @@ public class ProdutoController {
         }
     }
     
+    @PostMapping("/addToCart/{id}")
+    public ResponseEntity<Void> addToCart(@PathVariable(value="id") Integer id, HttpSession session){
+        if(sm.isUserLogged(session)){            
+            ProdutoEntity prodFound = ps.getProdutoById(id);
+            if(prodFound != null){
+                sm.addToCart(session, prodFound);
+            }
+            
+            return ResponseEntity.ok().build();
+        }
+        
+        return ResponseEntity.status(401).build();
+    }
+    
+    @PostMapping("/removeFromCart/{id}")
+    public ResponseEntity<Void> removeFromCart(@PathVariable(value="id") Integer id, HttpSession session){
+        ProdutoEntity prodFound = ps.getProdutoById(id);
+        if(prodFound != null){
+            sm.removeFromCart(session, prodFound.getId());
+        }
+        
+        return ResponseEntity.ok().build();
+    }
+    
     @GetMapping("/detalhes/{id}")
     public String details(@PathVariable(value="id") Integer id, Model model, HttpSession session){
         AvaliacoesEntity newReview = new AvaliacoesEntity();
@@ -95,7 +119,7 @@ public class ProdutoController {
     
     @GetMapping("/getProductInfo/{id}")
     @ResponseBody
-    public ProdutoEntity getProductInfo(@PathVariable Integer id){
+    public ProdutoEntity getProductInfo(@PathVariable(value="id") Integer id){
         ProdutoEntity prodDetails = ps.getProdutoById(id);
         
         if(prodDetails.getImage() == null){
@@ -112,7 +136,7 @@ public class ProdutoController {
     }
     
     @DeleteMapping("/deleteProduct/{id}")
-    public ResponseEntity<String> deleteProduct(@PathVariable Integer id){
+    public ResponseEntity<String> deleteProduct(@PathVariable(value="id") Integer id){
         ProdutoEntity prodToDelete = ps.getProdutoById(id);
         ps.deleteProduto(prodToDelete);
         

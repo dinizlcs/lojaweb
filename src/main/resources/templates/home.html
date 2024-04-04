@@ -31,8 +31,9 @@
                             </p>
                             <p class="card-text">R$<span th:text="${#strings.replace(produto.price, '.', ',')}"></span></p>
                             <div class="row justify-content-center">
-                                <a class="btn btn-card" th:href="@{product/detalhes/{id} (id=${produto.id})}">Ver detalhes</a>
-                                <a class="btn btn-card mt-1" href="#"><i class="fa-solid fa-circle-plus"></i> Carrinho</a>
+                                <a class="btn btn-card" th:href="@{/product/detalhes/{id} (id=${produto.id})}">Ver detalhes</a>
+                                <a th:href="@{/product/addToCart/{id} (id=${produto.id})}" onclick="addToCart(this)" class="btn btn-card mt-1"><i class="fa-solid fa-circle-plus"></i>
+                                Carrinho</a>
                             </div>
                         </div>
                     </div>
@@ -43,5 +44,28 @@
         <footer class="footer">
             
         </footer>
+        
+        <script>
+            function addToCart(prodToAdd){
+                event.preventDefault();
+                var url = $(prodToAdd).attr('href');
+                var originalValue = $(prodToAdd).html();
+
+                $.ajax({
+                    url: url,
+                    type: "POST",
+                    success: function(){
+                        $(prodToAdd).text('Produto adicionado');
+                        
+                        setTimeout(function(){
+                            $(prodToAdd).html(originalValue);
+                        }, 1500);
+                    },
+                    error: function(){
+                        window.location.href = "/usuario/login";
+                    }
+                });
+            }
+        </script>
     </body>
 </html>

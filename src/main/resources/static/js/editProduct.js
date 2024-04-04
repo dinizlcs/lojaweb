@@ -53,11 +53,10 @@ $(document).ready(function() {
     });
     
     $('#delProduct').click(function(){
-        var confirmDelete = confirm("Deseja deletar este produto?\nEsta ação não pode ser revertida.");
-        if(confirmDelete){
-            var productId = $('#selectProduct').val();
-        
-            if(productId !== '-1'){
+        var productId = $('#selectProduct').val();
+        if(productId !== '-1'){
+            var confirmDelete = confirm("Deseja deletar este produto?\nEsta ação não pode ser revertida.");
+            if(confirmDelete){
                 $.ajax({
                     type: "DELETE",
                     url: "/product/deleteProduct/" + productId,
@@ -65,9 +64,9 @@ $(document).ready(function() {
                         window.location.href = response;
                     }
                 });
-            }else{
-                alert('Selecione um produto para deletar');
             }
+        }else{
+            alert('Selecione um produto para deletar');
         }
     });
 });

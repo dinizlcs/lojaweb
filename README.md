@@ -2,7 +2,7 @@
 <p>Projeto para venda de produtos na web. Será um e-commerce para que uma loja possa vender seus produtos online.</p>
 <p>Projeto iniciado no <strong>técnico em desenvolvimento de sistemas no Senac</strong>.</p>
 
-<h3 align="center">⚒ Em desenvolvimento ⚒</h3>
+<h3 align="center">Projeto Finalizado</h3>
 
 <h2>Equipe de desenvolvedores</h2>
 <ul>
@@ -42,12 +42,12 @@
 <ul>
   <li> [X] Mostrar mais informações sobre o produto selecionado</li>
   <li> [X] Mostrar avaliações do produto</li>
-  <li> [ ] Permitir o usuário adicionar o produto ao carrinho</li>
+  <li> [X] Permitir o usuário adicionar o produto ao carrinho</li>
 </ul>
 
 <p><strong>Tela de carrinho</strong></p>
 <ul>
-  <li> [ ] Mostrar produtos que o usuário guardou</li>
-  <li> [ ] Possibilitar finalizar a compra</li>
+  <li> [X] Mostrar produtos que o usuário guardou</li>
+  <li> [X] Possibilitar finalizar a compra</li>
 </ul>
 <p>Obs.: Para <strong>finalizar a compra</strong> o usuário deverá ter uma conta logada e selecionar algum método de pagamento disponível</p>

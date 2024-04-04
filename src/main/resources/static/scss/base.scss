@@ -1,9 +1,9 @@
-$bgHeaderFooter: RGB(51, 51, 70);
+$mainColor: RGB(51, 51, 70);
 $bgBtnNav: RGB(81, 81, 110);
 $bgBtnCard: RGB(112, 112, 196);
 
 body{
-    background-color: RGB(109, 117, 133);
+    background-color: RGB(133, 128, 109);
 }
 
 main{
@@ -15,12 +15,12 @@ footer{
     bottom: 0;
     left: 0;
     width: 100vw;
-    background-color: $bgHeaderFooter;
+    background-color: $mainColor;
     padding: 25px;
 }
 
 nav{
-    background-color: $bgHeaderFooter;
+    background-color: $mainColor;
     font-size: 16pt;
     color: white;
     
@@ -51,7 +51,7 @@ nav{
 }
 
 .btn-card{
-    background-color: $bgHeaderFooter;
+    background-color: $mainColor;
     color: white;
     
     &:hover{
@@ -107,7 +107,7 @@ nav{
 
 .customForm-bg{
     width: fit-content;
-    background-color: RGB(133, 128, 109) !important;
+    background-color: RGB(109, 117, 133) !important;
     border: 4px solid RGB(51, 51, 70) !important;
     border-radius: 16px !important;
 }

@@ -28,7 +28,8 @@
                             <h3>R$ <span th:text="${#strings.replace(produto.price, '.', ',')}"></span></h3>
                         </div>
                         <div class="text-end">
-                            <a class="btn btn-card" href="#" style="font-size: 20pt"><i class="fas fa-shopping-basket"></i> Comprar</a>
+                            <a class="btn btn-card" th:href="@{/product/addToCart/{id} (id=${produto.id})}" onclick="buyProduct(this)" style="font-size: 20pt">
+                            <i class="fas fa-shopping-basket"></i> Comprar</a>
                         </div>
                     </div>
                 </div>
@@ -38,6 +39,7 @@
                         <p th:text="${produto.description}"></p>
                     </div>
                 </div>
+                
                 <!--Avaliações-->
                 <div class="row" style="border-top: 2px solid RGB(51, 51, 70);">
                     <h4 class="mt-2">Avaliações (<span th:text="${countReviews}"></span>)</h4>
@@ -108,6 +110,23 @@
                     }
                 });
             });
+            
+            function buyProduct(product){
+                event.preventDefault();
+                
+                var url = $(product).attr('href');
+                
+                $.ajax({
+                    url: url,
+                    type: "POST",
+                    success: function(){
+                        window.location.href = "/carrinho";
+                    },
+                    error: function(){
+                        window.location.href = "/usuario/login";
+                    }
+                });
+            }
         </script>
     </body>
 </html>

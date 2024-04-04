@@ -16,23 +16,24 @@
             <div class="container">
                 <div class="row">
                     <div class="col-md-9 my-2 me-2 prodList-bg">
-                        <div class="row my-2 mx-1 product-bg">
-                            <div class="col-md-3">
-                                <img th:src="@{/images/defaultImage.jpg}" style="width: 100%; max-height: 100%"/>
+                        <div th:each="produto : ${lstCart}" class="row my-2 mx-1 product-bg">
+                            <div class="col-md-2" style="border-right: 4px solid white;">
+                                <img th:if="${produto.base64Image != null}" th:src="'data:image/jpeg;base64,' + ${produto.base64Image}" class="my-1 product-img"/>
+                                <img th:unless="${produto.base64Image != null}" th:src="@{/images/defaultImg.jpg}" class="my-1 product-img product-img"/>
                             </div>
-                            <div class="col-md-7">
-                                <a href="#" class="prod-title"><h6>Titulo do produto</h6></a>
-                                <p>R$<span>Valor produto</span></p>
+                            <div class="col-md-8 p-1">
+                                <a th:href="@{/product/detalhes/{id} (id=${produto.id})}" class="prod-title"><h6 th:text="${produto.title}"></h6></a>
+                                <p>R$<span th:text="${produto.price}"></span></p>
                             </div>
                             <div class="col-md-2 text-end">
-                                <a href="#" class="prod-remove"><i class="fa-solid fa-trash-can"></i></a>
+                                <a th:href="@{/product/removeFromCart/{id} (id=${produto.id})}" onclick="removeFromCart(this)" class="prod-remove"><i class="fa-solid fa-trash-can"></i></a>
                             </div>
                         </div>
                     </div>
                     <div class="col-md">
                         <div class="row my-2 customForm-bg">
-                            <h4 class="mt-2">R$<span>Valor total</span></h4>
-                            <form class="mt-3">
+                            <h4 class="mt-2">R$<span id="totalValue" th:text="${totalValue}"></span></h4>
+                            <form id="formFinalizar" th:action="@{/compra-finalizada}" class="mt-3">
                                 <select id="selPayMethod" name="selPayMethod" class="form-select">
                                     <option value="1">Forma pag 1</option>
                                     <option value="2">Forma pag 2</option>
@@ -49,5 +50,30 @@
         </main>
         
         <footer></footer>
+        
+        <script>
+            $(document).ready(function(){
+                $('#formFinalizar').submit(function(event){
+                    var totalValue = parseFloat($('#totalValue').text());
+                    
+                    if(totalValue <= 0.0){
+                        event.preventDefault();
+                    }
+                });
+            });
+            
+            function removeFromCart(prodToRemove){
+                event.preventDefault();
+
+                var url = $(prodToRemove).attr('href');
+                $.ajax({
+                    url: url,
+                    type: 'POST',
+                    success: function(){
+                        window.location.href = '/carrinho';
+                    }
+                });
+            }
+        </script>
     </body>
 </html>
